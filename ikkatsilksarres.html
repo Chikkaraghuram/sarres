@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ikat Silk Saree - Product Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-pink-600">Ikat Silk Sarees</h1>
+      <a href="index.html" class="text-gray-700 hover:text-pink-600 font-semibold">Home</a>
+    </div>
+  </header>
+
+  <!-- Product Detail Section -->
+  <main class="py-10">
+    <div class="container mx-auto bg-white p-6 rounded-lg shadow-md grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      <!-- Product Image -->
+      <div>
+        <img src="IMG-20250729-WA0040.jpg" alt="Ikat Silk Saree" class="w-full rounded-lg shadow object-cover">
+      </div>
+
+      <!-- Product Info -->
+      <div class="flex flex-col justify-between">
+        <div>
+          <h2 class="text-3xl font-bold text-pink-700 mb-4">Traditional Ikat Silk Saree – Orange & Royal Blue</h2>
+          <p class="text-xl text-gray-800 font-semibold mb-2">₹4,299</p>
+          <p class="text-sm text-green-600 mb-4">Inclusive of all taxes</p>
+
+          <ul class="list-disc list-inside mb-4 text-gray-700 space-y-1">
+            <li>Pure Ikat silk weave</li>
+            <li>Bright orange body with subtle white ikat patterns</li>
+            <li>Royal blue border with golden zari peacock motifs</li>
+            <li>Perfect for weddings, festivals & ethnic occasions</li>
+          </ul>
+
+          <p class="mb-4 text-gray-600">
+            Experience the elegance of handcrafted tradition with this stunning Ikat silk saree. Woven with care and rich cultural heritage. Intricate golden zari work adds a royal touch to your wardrobe.
+          </p>
+        </div>
+
+        <!-- Buy Now Button -->
+        <div>
+          <a href="#" id="buyBtn" class="inline-block bg-pink-600 text-white text-center w-full py-3 rounded hover:bg-pink-700 transition text-lg font-semibold">
+            Buy Now
+          </a>
+
+          <!-- Address Form (Initially Hidden) -->
+<div id="addressForm" class="mt-6 hidden">
+  <h3 class="text-xl font-bold mb-4">Enter Delivery Address</h3>
+  <form id="addressFormElement" class="space-y-4">
+    <div>
+      <label class="block text-sm font-semibold">Full Name</label>
+      <input type="text" class="w-full border border-gray-300 rounded p-2" required>
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold">Phone Number</label>
+      <input 
+        type="tel" 
+        pattern="[0-9]{10}" 
+        maxlength="10" 
+        title="Enter 10-digit phone number" 
+        class="w-full border border-gray-300 rounded p-2" 
+        required
+      >
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold">Address</label>
+      <textarea class="w-full border border-gray-300 rounded p-2" rows="3" required></textarea>
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold">Pincode</label>
+      <input type="text" class="w-full border border-gray-300 rounded p-2" required>
+    </div>
+
+    <!-- Next Button -->
+    <button 
+      type="button" 
+      id="nextBtn" 
+      class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition font-semibold mt-4"
+    >
+      Next
+    </button>
+  </form>
+</div>
+
+<script>
+  const nextBtn = document.getElementById("nextBtn");
+  const form = document.getElementById("addressFormElement");
+
+  nextBtn.addEventListener("click", function () {
+    if (form.checkValidity()) {
+      // All fields are valid → go to payment.html
+      window.location.href = "payment.html";
+    } else {
+      // Show browser's built-in validation messages
+      form.reportValidity();
+    }
+  });
+</script>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript -->
+  <script>
+    const buyButton = document.getElementById("buyBtn");
+    const addressForm = document.getElementById("addressForm");
+
+    buyButton.addEventListener("click", function(e) {
+      e.preventDefault(); // stop the link from jumping
+      addressForm.classList.toggle("hidden");
+      buyButton.textContent = addressForm.classList.contains("hidden") ? "Buy Now" : "Hide Form";
+    });
+  </script>
+
+</body>
+</html>
