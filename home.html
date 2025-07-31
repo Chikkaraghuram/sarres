@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saree Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-green-50 text-gray-800 font-sans">
+
+<script>
+  // Redirect to login page if not logged in
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("userName");
+    window.location.href = "login.html";
+  }
+</script>
+
+<!-- Navbar -->
+<header class="bg-white shadow p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-pink-600">Welcome</h1>
+    <div class="relative inline-block text-left">
+      <button id="profileBtn" class="flex items-center gap-2 bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A11.954 11.954 0 0112 15c2.12 0 4.105.55 5.879 1.512M15 10a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        Profile
+      </button>
+      <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-md z-50">
+        <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">View Profile</a>
+        <button onclick="logout()" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="bg-pink-100 text-center py-20">
+  <h2 class="text-4xl font-bold text-blue-800 mb-4">Narsimha Sarees</h2>
+  <p class="text-gray-700 text-lg mb-6">Discover the finest collection of designer sarees.</p>
+  <a href="shop.html" class="bg-pink-600 text-white px-6 py-3 rounded hover:bg-pink-700">Shop Now</a>
+</section>
+
+<!-- About Section -->
+<section class="py-16 bg-white px-6">
+  <h3 class="text-3xl font-bold mb-6">About Us</h3>
+  <p class="text-gray-700">SareeShop delivers high-quality, handcrafted sarees that reflect the rich cultural heritage of India. We bring you modern styles with traditional roots, curated from skilled artisans across the country.</p>
+</section>
+
+<!-- Contact Section -->
+<section class="py-16 px-6">
+  <h3 class="text-3xl font-bold mb-6">Contact Us</h3>
+  <p class="text-gray-700 mb-2">Email: <a href="mailto:chikkanarsimha123456@gmail.com" class="text-pink-600 underline">chikkanarsimha123456@gmail.com</a></p>
+  <p class="text-gray-700">Phone: +91 9640421092</p>
+</section>
+
+<!-- Footer -->
+<footer class="bg-pink-800 text-white text-center py-6 mt-10">
+  <p>&copy; 2025 SareeShop. All Rights Reserved.</p>
+</footer>
+
+<script>
+  const profileBtn = document.getElementById("profileBtn");
+  const dropdown = document.getElementById("profileDropdown");
+
+  profileBtn.addEventListener("click", () => {
+    dropdown.classList.toggle("hidden");
+  });
+</script>
+
+</body>
+</html>
