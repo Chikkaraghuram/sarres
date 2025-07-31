@@ -2,82 +2,131 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saree Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login/Register - Ikat Sarees</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-green-50 text-gray-800 font-sans">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-<script>
-  // Redirect to login page if not logged in
-  if (localStorage.getItem("loggedIn") !== "true") {
-    window.location.href = "login.html";
-  }
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold text-pink-700 mb-4 text-center" id="formTitle">Customer Login</h2>
 
-  function logout() {
-    localStorage.removeItem("loggedIn");
-    localStorage.removeItem("userName");
-    window.location.href = "login.html";
-  }
-</script>
-
-<!-- Navbar -->
-<header class="bg-white shadow p-4">
-  <div class="container mx-auto flex justify-between items-center">
-    <h1 class="text-2xl font-bold text-pink-600">
-      Welcome <span id="userName" class="text-blue-800"></span>
-    </h1>
-    <div class="relative inline-block text-left">
-      <button id="profileBtn" class="flex items-center gap-2 bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 transition">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A11.954 11.954 0 0112 15c2.12 0 4.105.55 5.879 1.512M15 10a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
-        Profile
-      </button>
-      <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-md z-50">
-        <a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">View Profile</a>
-        <button onclick="logout()" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</button>
+    <!-- Login Form -->
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-semibold">Email</label>
+        <input type="email" id="loginEmail" class="w-full border border-gray-300 rounded p-2" required>
       </div>
-    </div>
+      <div>
+        <label class="block text-sm font-semibold">Password</label>
+        <input type="password" id="loginPassword" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <div class="text-right">
+        <button type="button" onclick="forgotPassword()" class="text-sm text-pink-600 hover:underline">Forgot Password?</button>
+      </div>
+      <button type="submit" class="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700 transition font-semibold">
+        Login
+      </button>
+      <p class="text-sm text-center mt-2 text-gray-500">Don't have an account?
+        <button type="button" onclick="showRegister()" class="text-pink-600 hover:underline">Register</button>
+      </p>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" class="space-y-4 hidden">
+      <div>
+        <label class="block text-sm font-semibold">Full Name</label>
+        <input type="text" id="registerName" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold">Email</label>
+        <input type="email" id="registerEmail" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold">Phone Number</label>
+        <input type="tel" id="registerPhone" class="w-full border border-gray-300 rounded p-2" required pattern="[0-9]{10}">
+      </div>
+      <div>
+        <label class="block text-sm font-semibold">Password</label>
+        <input type="password" id="registerPassword" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold">Confirm Password</label>
+        <input type="password" id="confirmPassword" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <button type="submit" class="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700 transition font-semibold">
+        Register
+      </button>
+      <p class="text-sm text-center mt-2 text-gray-500">Already have an account?
+        <button type="button" onclick="showLogin()" class="text-pink-600 hover:underline">Login</button>
+      </p>
+    </form>
   </div>
-</header>
 
-<!-- Hero Section -->
-<section class="bg-pink-100 text-center py-20">
-  <h2 class="text-4xl font-bold text-blue-800 mb-4">Narsimha Sarees</h2>
-  <p class="text-gray-700 text-lg mb-6">Discover the finest collection of designer sarees.</p>
-  <a href="shop.html" class="bg-pink-600 text-white px-6 py-3 rounded hover:bg-pink-700">Shop Now</a>
-</section>
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    const formTitle = document.getElementById("formTitle");
 
-<!-- About Section -->
-<section class="py-16 bg-white px-6">
-  <h3 class="text-3xl font-bold mb-6">About Us</h3>
-  <p class="text-gray-700">SareeShop delivers high-quality, handcrafted sarees that reflect the rich cultural heritage of India. We bring you modern styles with traditional roots, curated from skilled artisans across the country.</p>
-</section>
+    function showRegister() {
+      loginForm.classList.add("hidden");
+      registerForm.classList.remove("hidden");
+      formTitle.textContent = "Customer Registration";
+    }
 
-<!-- Contact Section -->
-<section class="py-16 px-6">
-  <h3 class="text-3xl font-bold mb-6">Contact Us</h3>
-  <p class="text-gray-700 mb-2">Email: <a href="mailto:chikkanarsimha123456@gmail.com" class="text-pink-600 underline">chikkanarsimha123456@gmail.com</a></p>
-  <p class="text-gray-700">Phone: +91 9640421092</p>
-</section>
+    function showLogin() {
+      registerForm.classList.add("hidden");
+      loginForm.classList.remove("hidden");
+      formTitle.textContent = "Customer Login";
+    }
 
-<!-- Footer -->
-<footer class="bg-pink-800 text-white text-center py-6 mt-10">
-  <p>&copy; 2025 SareeShop. All Rights Reserved.</p>
-</footer>
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+      const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
 
-<script>
-  const profileBtn = document.getElementById("profileBtn");
-  const dropdown = document.getElementById("profileDropdown");
+      if (storedUser && storedUser.email === email && storedUser.password === password) {
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("userName", storedUser.name);
+        alert("Login successful!");
+        window.location.href = "index.html"; // ✅ redirected to new home
+      } else {
+        alert("Invalid email or password!");
+      }
+    });
 
-  profileBtn.addEventListener("click", () => {
-    dropdown.classList.toggle("hidden");
-  });
+    registerForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("registerName").value.trim();
+      const email = document.getElementById("registerEmail").value.trim();
+      const phone = document.getElementById("registerPhone").value.trim();
+      const password = document.getElementById("registerPassword").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
 
-  // Show user's name from localStorage
-  document.getElementById("userName").textContent = localStorage.getItem("userName") || "";
-</script>
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
 
+      const user = { name, email, phone, password };
+      localStorage.setItem("registeredUser", JSON.stringify(user));
+      alert("Registration successful! Please login.");
+      showLogin();
+    });
+
+    function forgotPassword() {
+      const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
+      if (storedUser) {
+        alert("Your email: " + storedUser.email + "\nPassword: " + storedUser.password);
+      } else {
+        alert("No registered user found.");
+      }
+    }
+
+    if (localStorage.getItem("loggedIn") === "true") {
+      window.location.href = "index.html"; // ✅ already logged in
+    }
+  </script>
 </body>
 </html>
