@@ -47,67 +47,60 @@
         <!-- Buy Now Button -->
         <div>
           <a href="#" id="buyBtn" class="inline-block bg-pink-600 text-white text-center w-full py-3 rounded hover:bg-pink-700 transition text-lg font-semibold">
-            Buy Now
+            Book Now
           </a>
 
           <!-- Address Form (Initially Hidden) -->
-<div id="addressForm" class="mt-6 hidden">
-  <h3 class="text-xl font-bold mb-4">Enter Delivery Address</h3>
-  <form id="addressFormElement" class="space-y-4">
-    <div>
-      <label class="block text-sm font-semibold">Full Name</label>
-      <input type="text" class="w-full border border-gray-300 rounded p-2" required>
-    </div>
+          <div id="addressForm" class="mt-6 hidden">
+            <h3 class="text-xl font-bold mb-4">Enter Delivery Address</h3>
+            <form id="addressFormElement" class="space-y-4">
+              <div>
+                <label class="block text-sm font-semibold">Full Name</label>
+                <input type="text" class="w-full border border-gray-300 rounded p-2" required>
+              </div>
 
-    <div>
-      <label class="block text-sm font-semibold">Phone Number</label>
-      <input 
-        type="tel" 
-        pattern="[0-9]{10}" 
-        maxlength="10" 
-        title="Enter 10-digit phone number" 
-        class="w-full border border-gray-300 rounded p-2" 
-        required
-      >
-    </div>
+              <div>
+                <label class="block text-sm font-semibold">Phone Number</label>
+                <input 
+                  type="tel" 
+                  pattern="[0-9]{10}" 
+                  maxlength="10" 
+                  title="Enter 10-digit phone number" 
+                  class="w-full border border-gray-300 rounded p-2" 
+                  required
+                >
+              </div>
 
-    <div>
-      <label class="block text-sm font-semibold">Address</label>
-      <textarea class="w-full border border-gray-300 rounded p-2" rows="3" required></textarea>
-    </div>
+              <!-- ✅ Quantity Field -->
+              <div>
+                <label class="block text-sm font-semibold">Quantity</label>
+                <input 
+                  type="number" 
+                  min="1" 
+                  value="1"
+                  class="w-full border border-gray-300 rounded p-2" 
+                  required
+                >
+              </div>
 
-    <div>
-      <label class="block text-sm font-semibold">Pincode</label>
-      <input type="text" class="w-full border border-gray-300 rounded p-2" required>
-    </div>
+              <div>
+                <label class="block text-sm font-semibold">Address</label>
+                <textarea class="w-full border border-gray-300 rounded p-2" rows="3" required></textarea>
+              </div>
 
-    <!-- Next Button -->
-    <button 
-      type="button" 
-      id="nextBtn" 
-      class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition font-semibold mt-4"
-    >
-      Next
-    </button>
-  </form>
-</div>
+              <div>
+                <label class="block text-sm font-semibold">Pincode</label>
+                <input type="text" class="w-full border border-gray-300 rounded p-2" required>
+              </div>
 
-<script>
-  const nextBtn = document.getElementById("nextBtn");
-  const form = document.getElementById("addressFormElement");
-
-  nextBtn.addEventListener("click", function () {
-    if (form.checkValidity()) {
-      // All fields are valid → go to payment.html
-      window.location.href = "payment.html";
-    } else {
-      // Show browser's built-in validation messages
-      form.reportValidity();
-    }
-  });
-</script>
-
-
+              <!-- Next Button -->
+              <button 
+                type="button" 
+                id="nextBtn" 
+                class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition font-semibold mt-4"
+              >
+                Next
+              </button>
             </form>
           </div>
         </div>
@@ -115,17 +108,46 @@
     </div>
   </main>
 
-  <!-- JavaScript -->
-  <script>
-    const buyButton = document.getElementById("buyBtn");
-    const addressForm = document.getElementById("addressForm");
+ <script>
+  const buyButton = document.getElementById("buyBtn");
+  const addressForm = document.getElementById("addressForm");
 
-    buyButton.addEventListener("click", function(e) {
-      e.preventDefault(); // stop the link from jumping
-      addressForm.classList.toggle("hidden");
-      buyButton.textContent = addressForm.classList.contains("hidden") ? "Buy Now" : "Hide Form";
-    });
-  </script>
+  buyButton.addEventListener("click", function(e) {
+    e.preventDefault(); // stop the link from jumping
+    addressForm.classList.toggle("hidden");
+    buyButton.textContent = addressForm.classList.contains("hidden") ? "Book Now" : "Hide Form";
+  });
+
+  const nextBtn = document.getElementById("nextBtn");
+  const form = document.getElementById("addressFormElement");
+
+  nextBtn.addEventListener("click", function () {
+    if (form.checkValidity()) {
+      const name = form.querySelector("input[type='text']").value;
+      const phone = form.querySelector("input[type='tel']").value;
+      const quantity = form.querySelector("input[type='number']").value;
+      const address = form.querySelector("textarea").value;
+      const pincode = form.querySelectorAll("input[type='text']")[1].value;
+
+      const unitPrice = 4299;
+      const total = quantity * unitPrice;
+
+      // Save all booking data to localStorage
+      localStorage.setItem("name", name);
+      localStorage.setItem("phone", phone);
+      localStorage.setItem("quantity", quantity);
+      localStorage.setItem("address", address);
+      localStorage.setItem("pincode", pincode);
+      localStorage.setItem("totalPrice", total);
+
+      // Redirect to payment
+      window.location.href = "payment.html";
+    } else {
+      form.reportValidity();
+    }
+  });
+</script>
+
 
 </body>
 </html>

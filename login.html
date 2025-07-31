@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login/Register - Ikat Sarees</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold text-pink-700 mb-4 text-center" id="formTitle">Customer Login</h2>
+
+    <!-- Login Form -->
+    <form id="loginForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-semibold">Email</label>
+        <input type="email" id="loginEmail" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold">Password</label>
+        <input type="password" id="loginPassword" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <div class="text-right">
+        <button type="button" onclick="forgotPassword()" class="text-sm text-pink-600 hover:underline">Forgot Password?</button>
+      </div>
+      <button type="submit" class="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700 transition font-semibold">
+        Login
+      </button>
+      <p class="text-sm text-center mt-2 text-gray-500">Don't have an account?
+        <button type="button" onclick="showRegister()" class="text-pink-600 hover:underline">Register</button>
+      </p>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" class="space-y-4 hidden">
+      <div>
+        <label class="block text-sm font-semibold">Full Name</label>
+        <input type="text" id="registerName" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold">Email</label>
+        <input type="email" id="registerEmail" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold">Phone Number</label>
+        <input type="tel" id="registerPhone" class="w-full border border-gray-300 rounded p-2" required pattern="[0-9]{10}">
+      </div>
+      <div>
+        <label class="block text-sm font-semibold">Password</label>
+        <input type="password" id="registerPassword" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold">Confirm Password</label>
+        <input type="password" id="confirmPassword" class="w-full border border-gray-300 rounded p-2" required>
+      </div>
+      <button type="submit" class="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700 transition font-semibold">
+        Register
+      </button>
+      <p class="text-sm text-center mt-2 text-gray-500">Already have an account?
+        <button type="button" onclick="showLogin()" class="text-pink-600 hover:underline">Login</button>
+      </p>
+    </form>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    const formTitle = document.getElementById("formTitle");
+
+    function showRegister() {
+      loginForm.classList.add("hidden");
+      registerForm.classList.remove("hidden");
+      formTitle.textContent = "Customer Registration";
+    }
+
+    function showLogin() {
+      registerForm.classList.add("hidden");
+      loginForm.classList.remove("hidden");
+      formTitle.textContent = "Customer Login";
+    }
+
+    if (storedUser && storedUser.email === email && storedUser.password === password) {
+  localStorage.setItem("loggedIn", "true");
+  // Save user info again for profile access
+  localStorage.setItem("registeredUser", JSON.stringify(storedUser));
+  alert("Login successful!");
+  window.location.href = "index.html";
+}
+
+
+    // Register user
+    registerForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("registerName").value.trim();
+      const email = document.getElementById("registerEmail").value.trim();
+      const phone = document.getElementById("registerPhone").value.trim();
+      const password = document.getElementById("registerPassword").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      const user = { name, email, phone, password };
+      localStorage.setItem("registeredUser", JSON.stringify(user));
+      alert("Registration successful! Please login.");
+      showLogin();
+    });
+
+    // Login user
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+      const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
+
+      if (storedUser && storedUser.email === email && storedUser.password === password) {
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("userName", storedUser.name);
+        alert("Login successful!");
+        window.location.href = "index.html";
+      } else {
+        alert("Invalid email or password!");
+      }
+    });
+
+    // Forgot Password
+    function forgotPassword() {
+      const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
+      if (storedUser) {
+        alert("Your registered email: " + storedUser.email + "\nPassword: " + storedUser.password);
+      } else {
+        alert("No registered user found.");
+      }
+    }
+  </script>
+</body>
+</html>

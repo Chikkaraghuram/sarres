@@ -7,15 +7,47 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-green-50 text-gray-800 font-sans">
+  <script>
+  const profileBtn = document.getElementById("profileBtn");
+  const dropdown = document.getElementById("profileDropdown");
 
-  <!-- Navbar -->
-  <header class="bg-white shadow p-4">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-pink-600">welcome </h1>
-      <nav class="space-x-4">
-      </nav>
+  profileBtn.addEventListener("click", () => {
+    dropdown.classList.toggle("hidden");
+  });
+
+  function logout() {
+    localStorage.removeItem("loggedIn");
+    window.location.href = "login.html"; // redirect to login page
+  }
+
+  // Optional: Redirect if not logged in
+  if (localStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "login.html";
+  }
+</script>
+
+
+  <!-- Navbar with Profile -->
+<header class="bg-white shadow p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-pink-600">Welcome</h1>
+
+    <!-- Profile Dropdown -->
+    <div class="relative inline-block text-left">
+      <button id="profileBtn" class="flex items-center gap-2 bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A11.954 11.954 0 0112 15c2.12 0 4.105.55 5.879 1.512M15 10a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        Profile
+      </button>
+
+      <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded shadow-md z-50">
+<a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">View Profile</a>
+        <button onclick="logout()" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Logout</button>
+      </div>
     </div>
-  </header>
+  </div>
+</header>
 
   <!-- Hero Section -->
   <section class="bg-pink-100 text-center py-20">
