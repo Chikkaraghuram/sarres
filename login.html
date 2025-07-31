@@ -80,19 +80,24 @@
       formTitle.textContent = "Customer Login";
     }
 
-    if (storedUser && storedUser.email === email && storedUser.password === password) {
-  localStorage.setItem("loggedIn", "true");
-  // Save user info again for profile access
-  localStorage.setItem("registeredUser", JSON.stringify(storedUser));
-  alert("Login successful!");
-  window.location.href = "index.html";
-}
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+      const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
 
+      if (storedUser && storedUser.email === email && storedUser.password === password) {
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("userName", storedUser.name);
+        alert("Login successful!");
+        window.location.href = "index.html";
+      } else {
+        alert("Invalid email or password!");
+      }
+    });
 
-    // Register user
     registerForm.addEventListener("submit", function (e) {
       e.preventDefault();
-
       const name = document.getElementById("registerName").value.trim();
       const email = document.getElementById("registerEmail").value.trim();
       const phone = document.getElementById("registerPhone").value.trim();
@@ -110,32 +115,18 @@
       showLogin();
     });
 
-    // Login user
-    loginForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const email = document.getElementById("loginEmail").value.trim();
-      const password = document.getElementById("loginPassword").value.trim();
-      const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
-
-      if (storedUser && storedUser.email === email && storedUser.password === password) {
-        localStorage.setItem("loggedIn", "true");
-        localStorage.setItem("userName", storedUser.name);
-        alert("Login successful!");
-        window.location.href = "index.html";
-      } else {
-        alert("Invalid email or password!");
-      }
-    });
-
-    // Forgot Password
     function forgotPassword() {
       const storedUser = JSON.parse(localStorage.getItem("registeredUser"));
       if (storedUser) {
-        alert("Your registered email: " + storedUser.email + "\nPassword: " + storedUser.password);
+        alert("Your email: " + storedUser.email + "\nPassword: " + storedUser.password);
       } else {
         alert("No registered user found.");
       }
+    }
+
+    // Auto redirect if already logged in
+    if (localStorage.getItem("loggedIn") === "true") {
+      window.location.href = "index.html";
     }
   </script>
 </body>
