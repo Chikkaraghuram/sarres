@@ -90,7 +90,7 @@
         localStorage.setItem("loggedIn", "true");
         localStorage.setItem("userName", storedUser.name);
         alert("Login successful!");
-        window.location.href = "index.html";
+        window.location.href = "home.html"; // ✅ REDIRECT TO home.html
       } else {
         alert("Invalid email or password!");
       }
@@ -124,9 +124,9 @@
       }
     }
 
-    // Auto redirect if already logged in
+    // Redirect if already logged in
     if (localStorage.getItem("loggedIn") === "true") {
-      window.location.href = "index.html";
+      window.location.href = "home.html"; // ✅ AUTO-REDIRECT IF ALREADY LOGGED IN
     }
   </script>
 </body>

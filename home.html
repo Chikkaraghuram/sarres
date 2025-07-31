@@ -24,7 +24,9 @@
 <!-- Navbar -->
 <header class="bg-white shadow p-4">
   <div class="container mx-auto flex justify-between items-center">
-    <h1 class="text-2xl font-bold text-pink-600">Welcome</h1>
+    <h1 class="text-2xl font-bold text-pink-600">
+      Welcome <span id="userName" class="text-blue-800"></span>
+    </h1>
     <div class="relative inline-block text-left">
       <button id="profileBtn" class="flex items-center gap-2 bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 transition">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -72,6 +74,9 @@
   profileBtn.addEventListener("click", () => {
     dropdown.classList.toggle("hidden");
   });
+
+  // Show user's name from localStorage
+  document.getElementById("userName").textContent = localStorage.getItem("userName") || "";
 </script>
 
 </body>
